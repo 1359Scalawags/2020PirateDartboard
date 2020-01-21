@@ -39,8 +39,10 @@ public class TestColorSensor extends CommandBase {
         else if(phase ==3){//blue
             str = getResults();
         }
-
-        SmartDashboard.putString("phase "+phase, str);
+        
+        if(phase <=3){
+            SmartDashboard.putString("phase "+phase, str);
+        }
 
         Robot.oi.phase++;
     }
@@ -84,6 +86,7 @@ public class TestColorSensor extends CommandBase {
         avrDevR/=amt;
         avrDevG/=amt;
         avrDevB/=amt;
+        
         return "R:"+avrR+" d"+avrDevR +" G:"+avrG+"d "+avrDevG+" B:"+avrB+" d"+avrDevB;
     }
 
