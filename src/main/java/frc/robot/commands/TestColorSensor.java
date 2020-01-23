@@ -72,7 +72,7 @@ public class TestColorSensor extends CommandBase {
         avrDevG/=amt;
         avrDevB/=amt;
         
-        return "R:"+avrR+" d"+avrDevR +" G:"+avrG+"d "+avrDevG+" B:"+avrB+" d"+avrDevB;
+        return "R:"+avrR+" d "+avrDevR +" G:"+avrG+" d "+avrDevG+" B:"+avrB+" d "+avrDevB;
     }
 
     // Called repeatedly when this Command is scheduled to run
