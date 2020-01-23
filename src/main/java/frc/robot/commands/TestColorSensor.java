@@ -25,24 +25,9 @@ public class TestColorSensor extends CommandBase {
         // SmartDashboard.putNumber("Consistency:", Robot.colorSystem.getConsistency());
         // SmartDashboard.putString("Current Color:", Robot.colorSystem.getColor().toString().substring(37,45));
         // SmartDashboard.putString("Current RGB:", "R="+Robot.colorSystem.getRaw().red+" G="+Robot.colorSystem.getRaw().green+" B="+Robot.colorSystem.getRaw().blue);
-        int phase = Robot.oi.phase;
-
-        if(phase ==0){//yellow
-            str = getResults();
-        }
-        else if(phase ==1){//red
-            str = getResults();
-        }
-        else if(phase ==2){//green
-            str = getResults();
-        }
-        else if(phase ==3){//blue
-            str = getResults();
-        }
         
-        if(phase <=3){
-            SmartDashboard.putString("phase "+phase, str);
-        }
+        
+        SmartDashboard.putString("phase "+Robot.oi.phase, getResults());
 
         Robot.oi.phase++;
     }
