@@ -12,7 +12,6 @@ import frc.robot.subsystems.ColorSystem;
  */
 public class TestColorSensor extends CommandBase {
 
-    private String str;
 
     public TestColorSensor() {
         
@@ -24,56 +23,18 @@ public class TestColorSensor extends CommandBase {
     public void initialize() {
         // SmartDashboard.putNumber("Consistency:", Robot.colorSystem.getConsistency());
         // SmartDashboard.putString("Current Color:", Robot.colorSystem.getColor().toString().substring(37,45));
-        // SmartDashboard.putString("Current RGB:", "R="+Robot.colorSystem.getRaw().red+" G="+Robot.colorSystem.getRaw().green+" B="+Robot.colorSystem.getRaw().blue);
-        
-        
-        SmartDashboard.putString("phase "+Robot.oi.phase, getResults());
+        SmartDashboard.putString("Current RGB:", "R="+Robot.colorSystem.getColor().red+" G="+Robot.colorSystem.getColor().green+" B="+Robot.colorSystem.getColor().blue);
+        SmartDashboard.putString("Color", Robot.colorSystem.getColorName());
 
-        Robot.oi.phase++;
+        
+        // int phase = Robot.oi.phase;
+        // SmartDashboard.putString("phase "+phase, Robot.colorSystem.getResults(1000));
+
+        // Robot.oi.phase++;
+
     }
 
-    public String getResults(){
-        float[] resultsR = new float[100];
-        float[] resultsG = new float[100];
-        float[] resultsB = new float[100];
-
-        float avrR =0;
-        float avrG =0;
-        float avrB =0;
-
-        float avrDevR =0;
-        float avrDevG =0;
-        float avrDevB =0;
-        
-        int amt = 100;
-
-        for(int i=0; i<amt; i++){
-            resultsR[i] = (float)Robot.colorSystem.getRaw().red;
-            resultsG[i] = (float)Robot.colorSystem.getRaw().green;
-            resultsB[i] = (float)Robot.colorSystem.getRaw().blue;
-            avrR+=resultsR[i];
-            avrG+=resultsG[i];
-            avrB+=resultsB[i];
-        }
-        avrR/=amt;
-        avrG/=amt;
-        avrB/=amt;
-
-        for(int i=0; i<amt; i++){
-            resultsR[i] = Math.abs(avrR - resultsR[i]);
-            resultsG[i] = Math.abs(avrG - resultsG[i]);                
-            resultsB[i] = Math.abs(avrB - resultsB[i]);
-            avrDevR +=resultsR[i];
-            avrDevG +=resultsG[i];
-            avrDevB +=resultsB[i];
-        }
-        
-        avrDevR/=amt;
-        avrDevG/=amt;
-        avrDevB/=amt;
-        
-        return "R:"+avrR+" d "+avrDevR +" G:"+avrG+" d "+avrDevG+" B:"+avrB+" d "+avrDevB;
-    }
+   
 
     // Called repeatedly when this Command is scheduled to run
     @Override
