@@ -13,6 +13,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorSensorV3.RawColor;
@@ -25,24 +26,86 @@ public class ColorSystem extends SubsystemBase {
     private final ColorSensorV3 colorSensor = new ColorSensorV3(Constants.COLORSENSOR_I2C);
 
     private Color prevColor;
+    private String prevColorName;
     private Color currentColor;
+    private String currentColorName;
     private int consistentCount;
     private int inconsistentCount;
+    private double th =0.1;
 
 
     public ColorSystem() {      
-
+        SmartDashboard.putNumber("Color thresh hold", th);
     }
 
-    public RawColor getRaw(){
+    public String getavrColor(int amt){
+        float[] resultsR = new float[amt];
+        float[] resultsG = new float[amt];
+        float[] resultsB = new float[amt];
 
-        return colorSensor.getRawColor();
+        float avrR =0;
+        float avrG =0;
+        float avrB =0;
+
+        float avrDevR =0;
+        float avrDevG =0;
+        float avrDevB =0;
+
+        for(int i=0; i<amt; i++){
+            resultsR[i] = (float)getColor().red;
+            resultsG[i] = (float)getColor().green;
+            resultsB[i] = (float)getColor().blue;
+            avrR+=resultsR[i];
+            avrG+=resultsG[i];
+            avrB+=resultsB[i];
+        }
+        avrR/=amt;
+        avrG/=amt;
+        avrB/=amt;
+
+        for(int i=0; i<amt; i++){
+            resultsR[i] = Math.abs(avrR - resultsR[i]);
+            resultsG[i] = Math.abs(avrG - resultsG[i]);                
+            resultsB[i] = Math.abs(avrB - resultsB[i]);
+            avrDevR +=resultsR[i];
+            avrDevG +=resultsG[i];
+            avrDevB +=resultsB[i];
+        }
+        
+        avrDevR/=amt;
+        avrDevG/=amt;
+        avrDevB/=amt;
+
+        return "R:"+avrR+" d "+avrDevR +" G:"+avrG+" d "+avrDevG+" B:"+avrB+" d "+avrDevB;
+    }
+
+    public String getColorName(){
+        th = SmartDashboard.getNumber("Color thresh hold", th);
+
+        prevColorName = currentColorName;
+        getColor();
+
+        double r = currentColor.red;
+        double g = currentColor.green;
+        double b = currentColor.blue;
+
+        if(Math.abs(0.13489306 - r) <=th && Math.abs(0.43538037- g) <=th && Math.abs(0.42972437 -b) <=th)
+            currentColorName = "Blue";
+        else if(Math.abs(0.17530347 - r) <=th && Math.abs(0.5667771 - g) <=th && Math.abs(0.25793532 -b) <=th)
+            currentColorName = "Green";
+        else if(Math.abs(0.48934227 - r) <=th && Math.abs(0.36309862 - g) <=th && Math.abs(0.14753516 -b) <=th)
+            currentColorName = "Red";
+        else if(Math.abs(0.31467456 - r) <=th && Math.abs(0.5550923 - g) <=th && Math.abs(0.13020141 -b) <=th)
+            currentColorName = "Yellow";
+        else
+            currentColorName = "not found";
+        return currentColorName;
     }
 
     public Color getColor() {
         prevColor = currentColor;
         currentColor = colorSensor.getColor();
-        
+
         return currentColor;
     }
 
@@ -59,27 +122,12 @@ public class ColorSystem extends SubsystemBase {
     }
 
     public String getStringRGB() {
-        return "R:" + colorSensor.getRed() + " G:" + colorSensor.getGreen() + " B:" + colorSensor.getBlue();
+        return  colorSensor.getRed() + "," + colorSensor.getGreen() + "," + colorSensor.getBlue();
     }
 
     @Override
     public void periodic() {
         currentColor = colorSensor.getColor();
-        prevColor = currentColor;
-        isSimilar(prevColor, currentColor);
-    }
-
-    private boolean isSimilar(Color a, Color b) {
-        if( Math.abs(a.red - b.red) < Constants.COLORCHANNELTOLERANCE && 
-            Math.abs(a.green - b.green) < Constants.COLORCHANNELTOLERANCE &&
-            Math.abs(a.blue - b.blue) < Constants.COLORCHANNELTOLERANCE ) 
-        {
-            consistentCount++;
-            return true;
-        } else {
-           inconsistentCount++;
-            return false;
-       }
     }
 }
 
