@@ -41,7 +41,8 @@ public class TestMotorSpeeds extends CommandBase {
         if(a != speedA) speedA = a;
         if(b != speedB) speedB = b;
 
-        Robot.motorSystem.setMotorRPM(speedA, speedB);
+        // Robot.motorSystem.setMotorRPM(speedA, speedB);
+
         
     }
 
@@ -54,7 +55,7 @@ public class TestMotorSpeeds extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        Robot.motorSystem.setMotorRPM(0, 0);
+        // Robot.motorSystem.setMotorRPM(0, 0);
     }
 
 
