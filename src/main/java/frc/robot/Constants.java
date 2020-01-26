@@ -18,13 +18,9 @@ import edu.wpi.first.wpilibj.I2C;
  */
 public final class Constants {
 
-    // PWM Channels
-    // public static int MOTORA_ID = 1;
-    // public static int MOTORB_ID = 2;
 
-    //can ID's
-    public static int MotorA =0;
-    public static int MotorB =1;
+    public static int MOTORB_ID = 1;
+    public static int MOTORA_ID = 3;
 
     // DIO Channels
     public static int MotorA_EncoderA = 1;
@@ -36,10 +32,14 @@ public final class Constants {
     public final static I2C.Port COLORSENSOR_I2C = I2C.Port.kOnboard;
 
     // Defined Constants
-    public static double MOTORS_P = 1.0;
-    public static double MOTORS_I = 0.0;
-    public static double MOTOR_D = 0.0;
+    public static double MOTORS_P = 0.00005;
+    public static double MOTORS_I = 0.000001;
+    public static double MOTORS_D = 0.0;
+    public static double MOTORS_Iz = 0;
+    public static double MOTORS_Ff = 0;
+    public static double MAXRPM = 5700;
     public static double MOTOR_ENCODER_MULTIPLIER = 1.0;
+
 
     public final static double COLORCHANNELTOLERANCE = 0.1;
 
