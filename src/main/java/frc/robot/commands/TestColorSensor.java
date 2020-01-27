@@ -12,12 +12,6 @@ import frc.robot.subsystems.ColorSystem;
  */
 public class TestColorSensor extends CommandBase {
 
-
-    public TestColorSensor() {
-        
-        
-    }
-
     // Called just before this Command runs the first time
     @Override
     public void initialize() {
