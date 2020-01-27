@@ -9,8 +9,7 @@ import frc.robot.Robot;
  */
 public class TestMotorSpeeds extends CommandBase {
 
-    private double speedA;
-    private double speedB;
+    private double speedA, speedB;
 
     public TestMotorSpeeds() {
         speedA = 0.0;
@@ -20,7 +19,7 @@ public class TestMotorSpeeds extends CommandBase {
     public TestMotorSpeeds(double speedA_, double speedB_) {   
         speedA = speedA_;   
         speedB = speedB_; 
-        
+
         SmartDashboard.putNumber("Motor_Speed_A", speedA);
         SmartDashboard.putNumber("Motor_Speed_B", speedB);
     }
@@ -35,16 +34,10 @@ public class TestMotorSpeeds extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        double a,b;
+        double a = Robot.oi.getLStickY(); //possibly need to remap the range of stick values to [-1,1]
+        double b = Robot.oi.getRStickY(); //possibly need to remap the range of stick values to [-1,1]
 
-        a = SmartDashboard.getNumber("Motor_Speed_A", 0);
-        b = SmartDashboard.getNumber("Motor_Speed_B", 0);
-        if(a != speedA) speedA = a;
-        if(b != speedB) speedB = b;
-
-        // Robot.motorSystem.setMotorRPM(speedA, speedB);
-
-        
+        Robot.motorSystem.updateMotorRPM(a, b);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -56,7 +49,7 @@ public class TestMotorSpeeds extends CommandBase {
     // Called once after isFinished returns true
     @Override
     public void end(boolean interrupted) {
-        // Robot.motorSystem.setMotorRPM(0, 0);
+        Robot.motorSystem.updateMotorRPM(0, 0);
     }
 
 

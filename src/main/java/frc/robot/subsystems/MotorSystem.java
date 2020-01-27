@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.OI;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,7 +25,6 @@ public class MotorSystem extends SubsystemBase {
     private CANPIDController controllerB;
     private double kP_A, kP_B, kI_A, kI_B, kD_A, kD_B, kIz_A, kIz_B, kFf_A, kFf_B;
     private double speedA, speedB;
-    private Hand hand;
 
     public MotorSystem() {
 
@@ -71,23 +68,10 @@ public class MotorSystem extends SubsystemBase {
         SmartDashboard.putNumber("MotorA P Gain", kP_A);
         SmartDashboard.putNumber("MotorA I Gain", kI_A);
         SmartDashboard.putNumber("MotorA D Gain", kD_A);
-        // if(SmartDashboard.getEntry("MotorA Speed Setting") == null)
-        //     SmartDashboard.delete("MotorA Speed Setting");
 
-        // SmartDashboard.putNumber("MotorA Speed Setting", speedA);
-        
-        speedA = Robot.oi.driverContoller.getY(hand.kRight);//set with joystick
-        
         SmartDashboard.putNumber("MotorB P Gain", kP_B);
         SmartDashboard.putNumber("MotorB I Gain", kI_B);
         SmartDashboard.putNumber("MotorB D Gain", kD_B);
-
-        // if(SmartDashboard.getEntry("MotorB Speed Setting") == null)
-        //     SmartDashboard.delete("MotorB Speed Setting");
-            
-        // SmartDashboard.putNumber("MotorB Speed Setting", speedB);
-
-        speedB = Robot.oi.driverContoller.getY(hand.kLeft);//set with joystick
 
         SmartDashboard.putNumber("MotorA Measured Velocity", speedEncoderA.getVelocity());
         SmartDashboard.putNumber("MotorB Measured Velocity", speedEncoderB.getVelocity());
@@ -99,11 +83,20 @@ public class MotorSystem extends SubsystemBase {
      * @param speedA A value from -1 to 1
      * @param speedB A value from -1 to 1
      */
-    public void updateMotorRPM() {
+
+    public void updateMotorRPM(double speedA_, double speedB_) {
+        if(speedA != speedA_)
+            speedA = speedA_;
+        if(speedB != speedB_)
+            speedB = speedB_;
+
+        updateMotor();
+    }
+
+    private void updateMotor(){
         controllerA.setReference(speedA*Constants.MAXRPM, ControlType.kVelocity);
         controllerB.setReference(speedB*Constants.MAXRPM, ControlType.kVelocity);
     }
-
 
     @Override
     public void periodic() {
@@ -139,7 +132,7 @@ public class MotorSystem extends SubsystemBase {
                 speedB = speed_b;
 
         // update the motor desired RPM
-        updateMotorRPM();
+        updateMotor();
 
         // update the SmartDashboard with current velocity
         SmartDashboard.putNumber("MotorA Measured Velocity", speedEncoderA.getVelocity());
