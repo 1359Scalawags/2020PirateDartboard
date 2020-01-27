@@ -17,9 +17,10 @@ public class TestMotorSpeeds extends CommandBase {
         speedB = 0.0;
     }
 
-    public TestMotorSpeeds(double SpeedA, double SpeedB) {   
-        speedA = SpeedA;   
-        speedB = SpeedB; 
+    public TestMotorSpeeds(double speedA_, double speedB_) {   
+        speedA = speedA_;   
+        speedB = speedB_; 
+        
         SmartDashboard.putNumber("Motor_Speed_A", speedA);
         SmartDashboard.putNumber("Motor_Speed_B", speedB);
     }
