@@ -36,6 +36,8 @@ public class TestMotorSpeeds extends CommandBase {
     public void execute() {
         double a = Robot.oi.getLStickY(); //possibly need to remap the range of stick values to [-1,1]
         double b = Robot.oi.getRStickY(); //possibly need to remap the range of stick values to [-1,1]
+        
+        SmartDashboard.putNumber("Left Stick Y", Robot.oi.getLStickY());
 
         Robot.motorSystem.updateMotorRPM(a, b);
     }
