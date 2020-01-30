@@ -33,7 +33,6 @@ public class ColorSystem extends SubsystemBase {
     private int inconsistentCount;
     private double th =0.1;
 
-
     public ColorSystem() {      
         SmartDashboard.putNumber("Color thresh hold", th);
     }
