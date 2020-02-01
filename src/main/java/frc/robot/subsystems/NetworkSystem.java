@@ -23,7 +23,7 @@ public class NetworkSystem extends SubsystemBase {
     NetworkTableEntry Distancevalue;
     
     public NetworkSystem(){
-        inst = NetworkTableInstance.getDefault();
+        inst = NetworkTableInstance.getDefault(); //1735
         Distance = inst.getTable("DistanceTable");
         Distancevalue = Distance.getEntry("value");
 
