@@ -1,71 +1,49 @@
 package frc.robot.subsystems;
 
+import java.util.Set;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-// import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;;
+import edu.wpi.first.networktables.NetworkTableType;
+import edu.wpi.first.networktables.NetworkTableValue;
+import edu.wpi.first.networktables.TableEntryListener;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class NetworkSystem extends SubsystemBase {
-    NetworkTableEntry xEntry;
-    NetworkTableEntry distance;
-    NetworkTableEntry angle;
-    // not needed in final build
-    //private double x;
-   // private double distancevalue;
-    // needed in final build
-    float xPercentage;
-    float angleAtTarget;
-    double distanceFromTarget;
+    // NetworkTableEntry xEntry;
+    // NetworkTableEntry distance;
+    // NetworkTableEntry angle;
+    // float xPercentage;
+    // float angleAtTarget;
+    // double distanceFromTarget;
+    NetworkTableInstance inst;
+    NetworkTable Distance; 
+    NetworkTableEntry Distancevalue;
     
     public NetworkSystem(){
-        NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        NetworkTable xTable = inst.getTable("XTable");
-        NetworkTable targetDistanceTable = inst.getTable("DistanceTable");
-        xEntry = xTable.getEntry("X");
-        distance = targetDistanceTable.getEntry("DistanceFromTarget");
-        angle = targetDistanceTable.getEntry("AngleFromTarget");
-        //  x = 0; // random values
-        // distanceFromTarget = 20; // random values
+        inst = NetworkTableInstance.getDefault();
+        Distance = inst.getTable("DistanceTable");
+        Distancevalue = Distance.getEntry("value");
+
+        TableEntryListener listener = new TableEntryListener(){        
+            @Override
+            public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value,
+                    int flags) {
+                    SmartDashboard.putString("distance", value.toString());
+            }
+        };
+        
+        
+        // Object[] keys =  Distance.getKeys().toArray();
+        // for(int i=0; i<keys.length; i++){
+        //     keys[i];
+        // }
     }
-
-    public void initDefaultCommand(){
+    
+    @Override
+    public void periodic() {
 
     }
-
-    public double returnDistanceFromTarget(){
-        return distanceFromTarget;
-    }
-
-    public float returnAngleFromTarget(){
-        return angleAtTarget;
-    }
-
-    public void getTableValues(){
-        xPercentage = (float)xEntry.getDouble(0);
-        distanceFromTarget = distance.getDouble(0);
-        angleAtTarget = (float)angle.getDouble(0);
-        // System.out.println("##############################################"+xPercentage);
-        // System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+distancevalue);
-    }
-
-    // not needed in final build
-    // public void setTablePeriodic(){
-    //     xEntry.setDouble(x);
-    //     distance.setDouble(distancevalue);
-    //     if(x <= 1000){
-    //         x += 1; // random values
-    //     }
-    //     else{
-    //         x = 0;
-    //     }
-    //     if(distancevalue <= 1000){
-    //         distancevalue += 1; // random values
-    //     }
-    //     else{
-    //         distancevalue = 0;
-    //     }
-    // }
-
 }
