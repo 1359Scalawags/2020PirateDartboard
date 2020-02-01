@@ -28,6 +28,9 @@ public class MotorSystem extends SubsystemBase {
 
     public MotorSystem() {
 
+        SmartDashboard.putNumber("A", 0);
+        SmartDashboard.putNumber("B", 0);
+
         //initialize variables using default values
         kP_A = kP_B = Constants.MOTORS_P;
         kI_A = kI_B = Constants.MOTORS_I;
@@ -102,6 +105,11 @@ public class MotorSystem extends SubsystemBase {
     public void periodic() {
             // get and update all SmartDashboard values for MotorA
             double p_a, i_a, d_a, speed_a;
+            double a, b;
+            a = SmartDashboard.getNumber("A", 0);
+            b = SmartDashboard.getNumber("B", 0);
+            updateMotorRPM(a, b);
+
             p_a = SmartDashboard.getNumber("MotorA P Gain", 0);
             i_a = SmartDashboard.getNumber("MotorA I Gain", 0);
             d_a = SmartDashboard.getNumber("MotorA D Gain", 0);

@@ -20,6 +20,7 @@ public final class Constants {
 
 
     public static int MOTORB_ID = 4;
+    //public static int MOTORB_ID = 5;
     public static int MOTORA_ID = 3;
 
     // DIO Channels
