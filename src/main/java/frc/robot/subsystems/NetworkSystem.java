@@ -29,11 +29,13 @@ public class NetworkSystem extends SubsystemBase {
 
         TableEntryListener listener = new TableEntryListener(){        
             @Override
-            public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value,
-                    int flags) {
+            public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value, int flags) {
                     SmartDashboard.putString("distance", value.toString());
             }
         };
+        
+        int flags = 0;//what is flags??
+        Distance.addEntryListener(listener, flags);
         
         
         // Object[] keys =  Distance.getKeys().toArray();
