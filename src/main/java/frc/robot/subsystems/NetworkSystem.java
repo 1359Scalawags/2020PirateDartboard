@@ -34,6 +34,9 @@ public class NetworkSystem extends SubsystemBase {
             }
         };
         
+        int flags = 0;//what is flags??
+        Distance.addEntryListener(listener, flags);
+        
         
         // Object[] keys =  Distance.getKeys().toArray();
         // for(int i=0; i<keys.length; i++){
