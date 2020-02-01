@@ -29,8 +29,7 @@ public class NetworkSystem extends SubsystemBase {
 
         TableEntryListener listener = new TableEntryListener(){        
             @Override
-            public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value,
-                    int flags) {
+            public void valueChanged(NetworkTable table, String key, NetworkTableEntry entry, NetworkTableValue value, int flags) {
                     SmartDashboard.putString("distance", value.toString());
             }
         };
