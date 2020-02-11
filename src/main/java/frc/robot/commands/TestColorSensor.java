@@ -17,15 +17,15 @@ public class TestColorSensor extends CommandBase {
     public void initialize() {
         // SmartDashboard.putNumber("Consistency:", Robot.colorSystem.getConsistency());
         // SmartDashboard.putString("Current Color:", Robot.colorSystem.getColor().toString().substring(37,45));
-        Color col = Robot.colorSystem.getColor();
-        SmartDashboard.putString("Current RGB:", "R="+col.red+" G="+col.green+" B="+col.blue);
-        SmartDashboard.putString("Color", Robot.colorSystem.getColorName());
+        // Color col = Robot.colorSystem.getColor();
+        // SmartDashboard.putString("Current RGB:", "R="+col.red+" G="+col.green+" B="+col.blue);
+        // SmartDashboard.putString("Color", Robot.colorSystem.getColorName());
 
         
-        // int phase = Robot.oi.phase;
-        // SmartDashboard.putString("phase "+phase, Robot.colorSystem.getavrColor(1000));
+        int phase = Robot.oi.phase;
+        SmartDashboard.putString("phase "+phase, Robot.colorSystem.getavrColor(1000));
 
-        // Robot.oi.phase++;
+        Robot.oi.phase++;
 
     }
 
