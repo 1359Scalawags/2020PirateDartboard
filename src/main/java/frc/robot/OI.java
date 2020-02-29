@@ -84,7 +84,7 @@ public class OI {
         testColor = new JoystickButton(driverContoller, 1);
         testMotor = new JoystickButton(driverContoller, 2);
 
-        testColor.whileHeld(new TestColorSensor());
+        // testColor.whileHeld(new TestColorSensor());
         testMotor.whileHeld(new TestMotorSpeeds());
         
         SmartDashboard.putData(new TestRelayOpen());
