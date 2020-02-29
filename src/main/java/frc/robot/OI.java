@@ -90,6 +90,8 @@ public class OI {
         SmartDashboard.putData(new TestRelayOpen());
         SmartDashboard.putData(new TestRelayClose());
 
+        SmartDashboard.putData(new TestPixy());
+
         //shootButton.whileHeld(new TestMotorSpeeds());
 
         //speedoButton = new JoystickButton(driverContoller, 1);

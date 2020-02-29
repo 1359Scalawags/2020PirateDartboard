@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-class PixySystem extends SubsystemBase
+public class PixySystem extends SubsystemBase
 {
     boolean lampOn = false;
     byte[] lastCache = {
