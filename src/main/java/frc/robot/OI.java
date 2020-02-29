@@ -87,7 +87,8 @@ public class OI {
         testColor.whileHeld(new TestColorSensor());
         testMotor.whileHeld(new TestMotorSpeeds());
         
-
+        SmartDashboard.putData(new TestRelayOpen());
+        SmartDashboard.putData(new TestRelayClose());
 
         //shootButton.whileHeld(new TestMotorSpeeds());
 
